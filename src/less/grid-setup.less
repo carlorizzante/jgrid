@@ -1,0 +1,60 @@
+// GRID SETUP
+// -------------------------------------------------------------------
+// Common settings for container and contained items
+
+@{contrl-class} {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	font-size: 0;
+	
+	// Where the magic happens
+	text-align: justify;
+	
+	// Google Chrome fix
+	text-justify: distribute-all-lines;
+
+	// Elements to arrange in grid
+	> @{module-class} {
+		margin-left: 0;
+		margin-right: 0;
+		display: inline-block;
+		text-align: left; // Restore alignment to default inside the grid
+		font-size: @base-font-size; // Restore font size to browser default
+		line-height: @base-line-height; // Basic line height
+		vertical-align: top; // Seems to fix subgrid disalignement in some browsers
+
+		// Natural Box Model
+		// The padding will be added within the width of the element and not added to it
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+		        box-sizing: border-box;
+
+		// Paddings create a more fluid space between elements
+		padding:  @grid-gutter-width/2; 
+
+		// Force justification on the last row
+		&:last-child:after {
+			content: '';
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			font-size: 0;
+			line-height: 0;
+		}
+	}
+	
+	// Remove padding for subgrids
+	> @{subgrid-class} {
+		padding: 0;
+		font-size: 0;
+	}
+	
+	// Make images inside the grid fully responsive
+	img {
+		width: auto;
+		max-width: 100%;
+		height: auto;
+		vertical-align: middle; // remove that ugly space beneath images in a box 
+	}
+}

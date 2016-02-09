@@ -1,0 +1,73 @@
+// GRID MATH
+// -------------------------------------------------------------------
+
+@mixin calc-grid-columns($columns, $class) {
+	@if ( $columns > 0 ) {
+		#{$contrl-class}-#{$class}-#{$columns} {
+			> #{$module-class} {
+				width: percentage(( 1 / $columns ));
+			}
+		}
+	}
+}
+
+@mixin calc-span-columns($columns, $span, $class) {
+	@if ( $span > 1 ) {	
+		#{$contrl-class}-#{$class}-#{$columns} {
+			> #{$module-class}-#{$class}-span-#{$span} {
+				width: percentage(( 1 / $columns ) * $span );
+			}
+		}
+	}
+}
+
+@mixin loop-grid-columns($columns, $class) {
+	@for $i from 0 through ($columns) {
+		@include calc-grid-columns($i, $class);
+		@for $x from 1 through ($i) {
+			@include calc-span-columns($i, $x, $class);
+		}
+	}
+}
+
+@mixin make-grid($class, $grid-columns) {
+	@include loop-grid-columns($grid-columns, $class);
+}
+
+
+// MAKING THE GRID
+// -------------------------------------------------------------------
+
+// Ultra small grid
+// for very tiny devices
+@include make-grid(us, $max-grid-columns-us);
+	
+// Extra small grid
+// for extra small devices like smartphones
+@media (min-width: $screen-xs-min) {
+	@include make-grid(xs, $max-grid-columns-xs);
+}
+
+// Small grid
+// for small device range, from phones to tablets
+@media (min-width: $screen-sm-min) {
+	@include make-grid(sm, $max-grid-columns-sm); 
+}
+
+// Medium grid
+// for small device range, for the laptop device range
+@media (min-width: $screen-md-min) {
+	@include make-grid(md, $max-grid-columns-md);
+}
+
+// Large grid
+// for large desktop device range
+@media (min-width: $screen-lg-min) {
+	@include make-grid(lg, $max-grid-columns-lg);
+}
+
+// Super large grid
+// for very large screens
+@media (min-width: $screen-xl-min) {
+	@include make-grid(sl, $max-grid-columns-xl);
+}

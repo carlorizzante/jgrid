@@ -1,0 +1,74 @@
+// GRID MATH
+// -------------------------------------------------------------------
+
+.calc-grid-columns(@index, @class) when (@index > 0) {
+	@{contrl-class}-@{class}-@{index} {
+		> @{module-class} {
+			width: percentage( 1 / @index );
+		}
+	}
+}
+
+.calc-span-columns(@index, @span, @class) {
+	@{contrl-class}-@{class}-@{index} {
+		> @{module-class}-@{class}-span-@{span} {
+			width: percentage(( 1 / @index ) * @span );
+		}
+	}
+}
+
+.loop-span-columns(@index, @span, @class) when (@span > 1) {
+	.calc-span-columns(@index, @span, @class);
+	// next iteration
+	.loop-span-columns(@index, (@span - 1), @class);
+}
+
+.loop-grid-columns(@index, @class) when (@index >= 0) {
+	.calc-grid-columns(@index, @class);
+	.loop-span-columns(@index, @index, @class);
+	// next iteration
+	.loop-grid-columns((@index - 1), @class);
+}
+
+.make-grid(@class, @grid-columns) {
+	.loop-grid-columns(@grid-columns, @class);
+//	.loop-span-columns(@grid-columns, @class);
+}
+
+
+// MAKING THE GRID
+// -------------------------------------------------------------------
+
+// Ultra small grid
+// for very tiny devices
+.make-grid(us, @max-grid-columns-us);
+
+// Extra small grid
+// for extra small devices like smartphones
+@media (min-width: @screen-xs-min) {
+	.make-grid(xs, @max-grid-columns-xs);
+}
+
+// Small grid
+// for small device range, from phones to tablets
+@media (min-width: @screen-sm-min) {
+	.make-grid(sm, @max-grid-columns-sm);
+}
+
+// Medium grid
+// for small device range, for the laptop device range
+@media (min-width: @screen-md-min) {
+	.make-grid(md, @max-grid-columns-md);
+}
+
+// Large grid
+// for large desktop device range
+@media (min-width: @screen-lg-min) {
+	.make-grid(lg, @max-grid-columns-lg);
+}
+
+// Super large grid
+// for very large screens
+@media (min-width: @screen-xl-min) {
+	.make-grid(xl, @max-grid-columns-xl);
+}

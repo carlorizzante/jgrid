@@ -1,0 +1,56 @@
+// GRID CLASSES
+// -------------------------------------------------------------------
+// Default classes can be modified in case of conflicts with other libraries
+@contrl-class:          .makegrid;        // base class for the container/controller
+@module-class:          .gridme;          // base class for the elements in grid, and span controllers
+@subgrid-class:         .makesubgrid;     // base class for subgrids
+
+// COLUMNS
+// -------------------------------------------------------------------
+// Max number of columns in the grid
+@max-grid-columns:          12;
+// Number of columns for each breakpoint
+@max-grid-columns-us:        1;
+@max-grid-columns-xs:        1;
+@max-grid-columns-sm:        2;
+@max-grid-columns-md:        6;
+@max-grid-columns-lg:        @max-grid-columns;
+@max-grid-columns-xl:        @max-grid-columns;
+
+// STYLING
+// -------------------------------------------------------------------
+// Padding between columns. Used in the math for columns width
+@grid-gutter-width:     5px;                // Applied as padding left and right
+// margin between rows.
+@grid-margin-bottom:    @grid-gutter-width; // not used, we go for padding all rounded
+// Restore font size to browser default (I assume is 16px as usually is)
+@base-font-size:        16px;
+// Line height
+@base-line-height:      1.5;                // in Bootstrap: 1.428571429; // 20/14
+
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+@line-height-computed:    floor((@base-font-size * @base-line-height));
+
+// BREAKPOINTS
+// -------------------------------------------------------------------
+// Ultra small / default set, from 0 to @screen-xs-min // iPhone portrait
+@screen-us-min:         320px;
+// eXtra small / from @screen-xs-min to @screen-sm-min // iPhone landscape
+@screen-xs-min:         480px;
+// Small screen / from @screen-sm-min to @screen-md-screen // iPad portrait
+@screen-sm-min:         768px;
+// Medium screen / from @screen-md-min to @screen-lg-min // iPad landscape
+@screen-md-min:        1024px;
+// Large screen / from @screen-lg-min to @screen-sl-screen // Desktop
+@screen-lg-min:        1200px;
+// Super large / from @screen-sl-screen // Wide screen
+@screen-xl-min:        1440px;
+
+/* RECAP
+iPhone portrait         320px     us      1 column
+iPhone landscape        480px     xs      1 columns
+iPad portrait           768px     sm      2 columns
+iPad landscape         1024px     md      6 columns
+Large screens          1200px     lg     12 columns
+Extra large screens    1440px     xl     12 columns
+*/
